@@ -1,7 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home extends MY_RootController {
+
+	function __construct(){
+        parent::__construct();
+        $this->__validateSession();
+    }
+
 
 	public function index()
 	{
