@@ -62,14 +62,20 @@
 </head>
 
 <body>
-<?php echo $this->session->flashdata('error_msg') ?>
- 
     <div class="color-line"></div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="back-link back-backend">
                     <!--<a href="index.html" class="btn btn-primary">Back to Dashboard</a>-->
+
+                    <!--Error Message Start-->
+                    <?php if($this->session->flashdata('error_msg')){ ?>
+                    <div class="alert alert-danger alert-mg-b" role="alert">
+                        <?=@$this->session->flashdata('error_msg');?>
+                    </div>
+                    <?php } ?>
+                    <!--Error Message End-->
                 </div>
             </div>
         </div>
