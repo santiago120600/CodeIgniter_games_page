@@ -62,6 +62,7 @@
 </head>
 
 <body>
+<?php echo $this->session->flashdata('error_msg') ?>
  
     <div class="color-line"></div>
     <div class="container-fluid">
@@ -74,23 +75,6 @@
         </div>
     </div>
     <div class="container-fluid">
-      <!--Shit-->
-        <!--Error message Start-->
-        <div class="row">
-            <div class="col-lg-6">
-                <?php if ($this->session->flashdata('error_msg')) { ?>
-                <div class="text-center">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong><?=@$this->session->flashdata('error_msg');?></strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-                <?php } ?>
-            </div>
-        </div>
-        <!--Error message End-->
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
             <div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
@@ -120,7 +104,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
         </div>
     </div>
 
