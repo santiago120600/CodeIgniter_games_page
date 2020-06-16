@@ -74,6 +74,7 @@
         </div>
     </div>
     <div class="container-fluid">
+      <!--Shit-->
         <!--Error message Start-->
         <div class="row">
             <div class="col-lg-6">
