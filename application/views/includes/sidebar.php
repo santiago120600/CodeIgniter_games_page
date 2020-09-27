@@ -7,7 +7,7 @@
         array("menu_text" => "Categories","menu_uri" => "categories", "menu_icon"=>"fas fa-list-ul",'active'=> @$categories_selected ? TRUE : FALSE ), 
         array("menu_text" => "Rates","menu_uri" => "home", "menu_icon"=>"fa fa-bar-chart"), 
         array("menu_text" => "Users","menu_uri" => "home", "menu_icon"=>"fa fa-group"), 
-        array("menu_text" => "Games","menu_uri" => "home", "menu_icon"=>"fa fa-gamepad"), 
+        array("menu_text" => "Games","menu_uri" => "Games", "menu_icon"=>"fa fa-gamepad",'active'=> @$games_selected ? TRUE : FALSE ), 
         array("menu_text" => "News","menu_uri" => "home", "menu_icon"=>"fa fa-globe"), 
         array("menu_text" => "Reviews","menu_uri" => "home", "menu_icon"=>"fa fa-edit"), 
         array("menu_text" => "Game Preview","menu_uri" => "home", "menu_icon"=>"fa fa-eye"), 
