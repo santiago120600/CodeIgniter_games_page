@@ -65,7 +65,15 @@
     <!-- Dropify
 		============================================ -->
     <link href="<?=base_url('resources/dropify/dist/css/dropify.css');?>" rel="stylesheet">
-
+    <style>
+        .active{
+          background-color:  #ec4445;
+          outline: 0 none;
+        }
+        .font-color{
+          color:white;
+        }
+    </style>
 </head>
 
 <body>

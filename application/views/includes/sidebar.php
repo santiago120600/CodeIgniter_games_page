@@ -3,35 +3,35 @@
   switch($current_session->user_privilege){
     case 'Administrator':
       $menus = array(
-        array("menu_text" => "Home","menu_uri" => "home", "menu_icon"=>"fas fa-home"),
+        array("menu_text" => "Home","menu_uri" => "home", "menu_icon"=>"fas fa-home",'active'=> @$home_selected ? TRUE : FALSE),
         array("menu_text" => "Categories","menu_uri" => "categories", "menu_icon"=>"fas fa-list-ul",'active'=> @$categories_selected ? TRUE : FALSE ), 
-        array("menu_text" => "Rates","menu_uri" => "home", "menu_icon"=>"fa fa-bar-chart"), 
-        array("menu_text" => "Users","menu_uri" => "home", "menu_icon"=>"fa fa-group"), 
+        array("menu_text" => "Rates","menu_uri" => "Rates", "menu_icon"=>"fa fa-bar-chart",'active'=> @$rates_selected ? TRUE : FALSE), 
+        array("menu_text" => "Users","menu_uri" => "Users", "menu_icon"=>"fa fa-group",'active'=> @$users_selected ? TRUE : FALSE), 
         array("menu_text" => "Games","menu_uri" => "Games", "menu_icon"=>"fa fa-gamepad",'active'=> @$games_selected ? TRUE : FALSE ), 
-        array("menu_text" => "News","menu_uri" => "home", "menu_icon"=>"fa fa-globe"), 
-        array("menu_text" => "Reviews","menu_uri" => "home", "menu_icon"=>"fa fa-edit"), 
-        array("menu_text" => "Game Preview","menu_uri" => "home", "menu_icon"=>"fa fa-eye"), 
+        array("menu_text" => "News","menu_uri" => "News", "menu_icon"=>"fa fa-globe",'active'=> @$news_selected ? TRUE : FALSE), 
+        array("menu_text" => "Reviews","menu_uri" => "Reviews", "menu_icon"=>"fa fa-edit",'active'=> @$reviews_selected ? TRUE : FALSE), 
+        array("menu_text" => "Game Preview","menu_uri" => "Preview", "menu_icon"=>"fa fa-eye",'active'=> @$preview_selected ? TRUE : FALSE), 
       );
     break;
     case 'Rater':
       $menus = array(
-        array("menu_text" => "Home","menu_uri" => "home", "menu_icon"=>"fas fa-home"),
+        array("menu_text" => "Home","menu_uri" => "home", "menu_icon"=>"fas fa-home",'active'=> @$home_selected ? TRUE : FALSE),
         array("menu_text" => "Categories","menu_uri" => "categories", "menu_icon"=>"fas fa-list-ul",'active'=> @$categories_selected ? TRUE : FALSE ), 
-        array("menu_text" => "Rates","menu_uri" => "home", "menu_icon"=>"fa fa-bar-chart"), 
-        array("menu_text" => "Games","menu_uri" => "home", "menu_icon"=>"fa fa-gamepad"), 
-        array("menu_text" => "News","menu_uri" => "home", "menu_icon"=>"fa fa-globe"), 
-        array("menu_text" => "Reviews","menu_uri" => "home", "menu_icon"=>"fa fa-edit"), 
+        array("menu_text" => "Rates","menu_uri" => "Rates", "menu_icon"=>"fa fa-bar-chart",'active'=> @$rates_selected ? TRUE : FALSE), 
+        array("menu_text" => "Games","menu_uri" => "Games", "menu_icon"=>"fa fa-gamepad",'active'=> @$games_selected ? TRUE : FALSE), 
+        array("menu_text" => "News","menu_uri" => "News", "menu_icon"=>"fa fa-globe",'active'=> @$news_selected ? TRUE : FALSE), 
+        array("menu_text" => "Reviews","menu_uri" => "Reviews", "menu_icon"=>"fa fa-edit",'active'=> @$reviews_selected ? TRUE : FALSE), 
       );
     break;
     case 'Super_Rater':
         $menus = array(
-            array("menu_text" => "Home","menu_uri" => "home", "menu_icon"=>"fas fa-home"),
+            array("menu_text" => "Home","menu_uri" => "home", "menu_icon"=>"fas fa-home",'active'=> @$home_selected ? TRUE : FALSE),
             array("menu_text" => "Categories","menu_uri" => "categories", "menu_icon"=>"fas fa-list-ul",'active'=> @$categories_selected ? TRUE : FALSE ), 
-            array("menu_text" => "Rates","menu_uri" => "home", "menu_icon"=>"fa fa-bar-chart"), 
-            array("menu_text" => "Games","menu_uri" => "home", "menu_icon"=>"fa fa-gamepad"), 
-            array("menu_text" => "News","menu_uri" => "home", "menu_icon"=>"fa fa-globe"), 
-            array("menu_text" => "Reviews","menu_uri" => "home", "menu_icon"=>"fa fa-edit"), 
-            array("menu_text" => "Game Preview","menu_uri" => "home", "menu_icon"=>"fa fa-eye"), 
+            array("menu_text" => "Rates","menu_uri" => "Rates", "menu_icon"=>"fa fa-bar-chart",'active'=> @$rates_selected ? TRUE : FALSE), 
+            array("menu_text" => "Games","menu_uri" => "Games", "menu_icon"=>"fa fa-gamepad",'active'=> @$games_selected ? TRUE : FALSE), 
+            array("menu_text" => "News","menu_uri" => "News", "menu_icon"=>"fa fa-globe",'active'=> @$news_selected ? TRUE : FALSE), 
+            array("menu_text" => "Reviews","menu_uri" => "Reviews", "menu_icon"=>"fa fa-edit",'active'=> @$reviews_selected ? TRUE : FALSE), 
+            array("menu_text" => "Game Preview","menu_uri" => "Preview", "menu_icon"=>"fa fa-eye",'active'=> @$preview_selected ? TRUE : FALSE), 
         );
       break;
   }
@@ -52,8 +52,8 @@
                     <?php foreach($menus as $iMenu){ ?>
                     <li class="<?=@$iMenu['active'] ? 'active' : '';?>">
                         <a class="" href="<?=base_url($iMenu['menu_uri']);?>">
-                            <i class="fa big-icon <?=$iMenu['menu_icon'];?> icon-wrap"></i>
-                            <span class=""><?=$iMenu['menu_text'];?></span>
+                            <i class="fa big-icon <?=$iMenu['menu_icon'];?> icon-wrap <?=@$iMenu['active'] ? 'font-color' : '';?>"></i>
+                            <span class="<?=@$iMenu['active'] ? 'font-color' : '';?>"><?=$iMenu['menu_text'];?></span>
                         </a>
                     </li>
                     <?php } ?>
