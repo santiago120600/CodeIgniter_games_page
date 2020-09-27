@@ -62,6 +62,10 @@
     <!-- main JS
 		============================================ -->
     <script src="<?=base_url('resources/js/main.js');?>"></script>
+    <!-- Dropify
+		============================================ -->
+    <script src="<?=base_url('resources/dropify/dist/js/dropify.js');?>"></script>
+
 </body>
 
 </html>

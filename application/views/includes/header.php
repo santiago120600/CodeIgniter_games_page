@@ -62,6 +62,10 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="<?=base_url('resources/js/vendor/modernizr-2.8.3.min.js');?>"></script>
+    <!-- Dropify
+		============================================ -->
+    <link href="<?=base_url('resources/dropify/dist/css/dropify.css');?>" rel="stylesheet">
+
 </head>
 
 <body>

@@ -25,6 +25,25 @@
     <div class="modal-body">
         <div class="row mg-tb-15">
             <div class="col-12">
+                <label for="pic_category">Foto:</label>
+                <?php if (empty(@$current_data['id_category'])) {
+                    ?>
+                    <input type="file" name='pic_category' class="dropify" data-default-file="<?=base_url('resources/img/placeholder.jpg');?>" data-allowed-file-extensions="png jpg" data-max-file-size='2M'/>
+                    <?php
+                    if (@$errors['pic_category']) {
+                        ?>
+                            <small class="form-text text-danger float-right">
+                                <?=$errors['pic_category'];?>
+                            </small>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <img src="<?=base_url('uploads/categories/'.$current_data['icon_category']);?>" class="card-img-top" alt="...">
+                        <?php } ?>
+            </div>
+        </div>
+
+        <div class="row mg-tb-15">
+            <div class="col-12">
                 <div class="form-group">
                     <label for="name_category">Name: </label>
                     <input type="text" name="name_category" class="form-control" id="name_category" value="<?=@$current_data['name_category'];?>">
@@ -46,3 +65,9 @@
         <button type="submit" class="btn btn-primary">Ok</button>
     </div>
 </form>
+
+<script type="text/javascript">
+    $(function(){
+        $('.dropify').dropify();
+    });
+</script>
