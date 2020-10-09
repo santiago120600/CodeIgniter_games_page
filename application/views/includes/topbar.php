@@ -35,7 +35,15 @@
                                                 <li class="nav-item"><a href="#" class="nav-link">About</a>
                                                 </li>
                                             </ul>
+                                            <!-- Search -->
+                                            <div class="breadcome-heading">
+                                                <form class="navbar-form navbar-right" role="search">
+                                                    <input type="text" class="form-control" placeholder="Search...">
+                                                    <button type="submit" class="btn btn-default" style="background-color: transparent; border-radius: 45% !important; border-style:none;"><i class="fa fa-search"></i></button>
+                                                </form>
+                                            </div>
                                         </div>
+                                        
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                         <div class="header-right-info">
