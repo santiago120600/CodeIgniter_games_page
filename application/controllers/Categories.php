@@ -13,17 +13,20 @@ class Categories extends MY_RootController {
     public function index()
 	{
             $this->load->view('includes/header');
+    		$this->load->view('includes/navbar.php');
             $data_menu['categories_selected'] = true;
             $this->load->view('includes/sidebar',$data_menu);
-            $this->load->view('includes/topbar');
-            $this->load->view('includes/search_menu');
+            $this->load->view('includes/header_page.php');
 
+
+            // contenido
             $data_container['container_data'] = $this->DAO->selectEntity('categories'); 
             $data_main['container_data'] = $this->load->view('categories/categories_data_page',$data_container,TRUE);
             $this->load->view('categories/categories_page',$data_main);
+            // contenido
+            $this->load->view('includes/footer_page.php');
             $this->load->view('includes/footer');
             $this->load->view('categories/categories_js');
-
     }
 
     public function showCategoriesForm(){

@@ -40,25 +40,32 @@
 
 
 
-<div class="left-sidebar-pro">
-    <nav id="sidebar" class="">
-        <div class="sidebar-header">
-            <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-            <strong><img src="img/logo/logosn.png" alt="" /></strong>
+<!-- left sidebar -->
+        <!-- ============================================================== -->
+        <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-divider">
+                                Menu
+                            </li>
+                             <?php foreach($menus as $iMenu){ ?>
+                                <li class="nav-item">
+                                    <a class="nav-link <?=@$iMenu['active'] ? 'active' : '';?>" href="<?=base_url($iMenu['menu_uri']);?>"  aria-expanded="false"><i class="fa fa-fw <?=$iMenu['menu_icon'];?>"></i><?=$iMenu['menu_text'];?></a>
+                                </li>
+                            <?php } ?>
+            
+                        </ul>
+                    </div>
+                </nav>
+            </div>
         </div>
-        <div class="left-custom-menu-adp-wrap comment-scrollbar">
-            <nav class="sidebar-nav left-sidebar-menu-pro">
-                <ul class="metismenu" id="menu1">
-                    <?php foreach($menus as $iMenu){ ?>
-                    <li class="<?=@$iMenu['active'] ? 'active' : '';?>">
-                        <a class="" href="<?=base_url($iMenu['menu_uri']);?>">
-                            <i class="fa big-icon <?=$iMenu['menu_icon'];?> icon-wrap <?=@$iMenu['active'] ? 'font-color' : '';?>"></i>
-                            <span class="<?=@$iMenu['active'] ? 'font-color' : '';?>"><?=$iMenu['menu_text'];?></span>
-                        </a>
-                    </li>
-                    <?php } ?>
-                </ul>
-            </nav>
-        </div>
-    </nav>
-</div>
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->

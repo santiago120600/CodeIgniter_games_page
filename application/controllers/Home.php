@@ -11,12 +11,13 @@ class Home extends MY_RootController {
 
 	public function index()
 	{
-		$this->load->view('includes/header');
+		$this->load->view('includes/header.php');
+		$this->load->view('includes/navbar.php');
 		$data_menu['home_selected'] = true;
-		$this->load->view('includes/sidebar',$data_menu);
-		$this->load->view('includes/topbar');
-		$this->load->view('includes/search_menu');
-		$this->load->view('includes/content');
-		$this->load->view('includes/footer');
+		$this->load->view('includes/sidebar.php',$data_menu);
+		$this->load->view('includes/header_page.php');
+		$this->load->view('home.php');
+		$this->load->view('includes/footer_page.php');
+		$this->load->view('includes/footer.php');
 	}
 }
