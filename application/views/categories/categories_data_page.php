@@ -10,7 +10,7 @@
                     <button type="button" class="btn btn-sm btn-danger float-right custom-action"
                         data-key="key_<?=$category->id_category;?>" data-opt="delete"><i class="fa fa-trash"></i></button>
                     <button type="button" class="btn btn-sm btn-success float-right mr-1 custom-action"
-                        data-key="key_<?=$category->id_category;?>" data-opt="update"><i class="fa fa-pencil"></i></button>
+                        data-key="key_<?=$category->id_category;?>" data-opt="update"><i class="fas fa-pencil-alt"></i></button>
                 </div>
             </div>
         </div>
