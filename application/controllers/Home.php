@@ -15,7 +15,8 @@ class Home extends MY_RootController {
 		$this->load->view('includes/navbar.php');
 		$data_menu['home_selected'] = true;
 		$this->load->view('includes/sidebar.php',$data_menu);
-		$this->load->view('includes/header_page.php');
+		$data_menu['current_section'] = 'Home';
+		$this->load->view('includes/header_page.php',$data_menu);
 		$this->load->view('home.php');
 		$this->load->view('includes/footer_page.php');
 		$this->load->view('includes/footer.php');

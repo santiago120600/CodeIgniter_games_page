@@ -16,7 +16,8 @@ class Categories extends MY_RootController {
     		$this->load->view('includes/navbar.php');
             $data_menu['categories_selected'] = true;
             $this->load->view('includes/sidebar',$data_menu);
-            $this->load->view('includes/header_page.php');
+            $data_menu['current_section'] = 'Categories';
+            $this->load->view('includes/header_page.php',$data_menu);
 
 
             // contenido

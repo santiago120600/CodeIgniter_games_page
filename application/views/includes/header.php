@@ -12,6 +12,9 @@
     <link href="<?=base_url("resources/assets/vendor/jvectormap/jquery-jvectormap-2.0.2.css");?>" rel="stylesheet">
     <!-- font awesome -->
     <link rel="stylesheet" href="<?=base_url("resources/fontawesome/css/all.css");?>">
+    <!-- dropify -->
+    <link href="<?=base_url('resources/dropify/dist/css/dropify.css');?>" rel="stylesheet">
+
     <title>Game Rate</title>
 </head>
 

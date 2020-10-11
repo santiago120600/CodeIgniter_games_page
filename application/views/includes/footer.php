@@ -16,5 +16,9 @@
     <script src="<?=base_url("resources/assets/vendor/bootstrap/js/bootstrap.bundle.js");?>"></script>
     <!-- slimscroll js -->
     <script src="<?=base_url("resources/assets/vendor/slimscroll/jquery.slimscroll.js");?>"></script>
+
+    <!-- dropify -->
+    <script src="<?=base_url('resources/dropify/dist/js/dropify.js');?>"></script>
+
 </body>
 </html>
