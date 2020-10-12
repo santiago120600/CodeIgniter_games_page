@@ -51,10 +51,40 @@ class Categories extends MY_RootController {
         if ($this->form_validation->run()) {
             //lo va a hacer new y edit
             if ($this->input->post('form_action') != "delete") {
-                $data = array(
-                    "name_category" => $this->input->post('name_category'),
-                    "desc_category" => $this->input->post('desc_category')
-                );
+                $uploaded_file = false;
+                //si es nuevo guardar
+                if ($this->input->post('form_action')== 'new') {
+                    $config['upload_path']          = './uploads/categories';
+                    $config['allowed_types']        = 'jpg|png';
+                    $config['max_size']             = 2048;
+                    $config['file_name'] = time();    
+                    $this->load->library('upload',$config);
+
+                    $uploaded_file = $this->upload->do_upload('pic_category');
+                }
+
+                //Si se subio la imagen y es un nuevo registro, guardar
+                if ($uploaded_file && $this->input->post('form_action')== 'new') {
+                    $data = array(
+                        "icon_category" => $this->upload->data()['file_name'],
+                        "name_category" => $this->input->post('name_category'),
+                        "desc_category" => $this->input->post('desc_category')
+                    );
+                }else if(!$uploaded_file && $this->input->post('form_action')== 'new'){
+                    //si no se guardo la imagen
+                    $data_response = array(
+                        "status" => "error",
+                        "message" => "Error al subir la foto",
+                        "data" =>  $this->load->view('categories/categories_form',$data,TRUE)
+                    );
+                    echo json_encode($data_response);
+                }else{
+                    //Editar
+                    $data = array(
+                        "name_category" => $this->input->post('name_category'),
+                        "desc_category" => $this->input->post('desc_category')
+                    );
+                }
             }else {
                 $data = array(
                     "status_category" => "Inactive"
@@ -79,6 +109,20 @@ class Categories extends MY_RootController {
                 "data" =>  $this->load->view('categories/categories_form',$data,TRUE)
             );
             echo json_encode($data_response);
+        }
+    }
+
+    function valid_pic($value){
+        if (empty($_FILES['pic_category']['name'])) {
+            if ($this->input->post('id_category')) {
+                return true;
+            }else {
+                $this->form_validation->set_message('valid_pic','The {field} is required');
+                return false;
+            }
+        }
+        else{
+            return true;
         }
     }
 

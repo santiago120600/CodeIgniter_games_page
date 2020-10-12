@@ -35,21 +35,22 @@ class Games extends MY_RootController {
             //Mostrar todos los productos
             $data_container['games_data'] = $this->DAO->selectEntity('games');
             $data_js['category_selected'] = null;
-
-
         }
+
         $this->load->view('includes/header');
+		$this->load->view('includes/navbar.php');
         $data_menu['games_selected'] = true;
         $this->load->view('includes/sidebar',$data_menu);
-        $this->load->view('includes/topbar');
-        $this->load->view('includes/search_menu');
-
+		$data_menu['current_section'] = 'Games';
+        $this->load->view('includes/header_page.php',$data_menu);
+        
         $data_main['container_data'] = $this->load->view('games/games_data_page',$data_container,TRUE);
         $this->load->view('games/games_page',$data_main);
-
+        
         $data_footer['modal_size'] = "modal-lg";
+		$this->load->view('includes/footer_page.php');
         $this->load->view('includes/footer',$data_footer);
-        $this->load->view('games/games_js',$data_js);
+        $this->load->view('games/games_js',$data_js);	
     }
 
     public function showGameForm(){
