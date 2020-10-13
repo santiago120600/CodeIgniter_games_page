@@ -128,7 +128,7 @@ class Games extends MY_RootController {
             }else {
                 $where_clause=array();
             }
-            $data_response = $this->DAO->saveOrUpdateEntity('producto',$data,$where_clause);
+            $data_response = $this->DAO->saveOrUpdateEntity('games',$data,$where_clause);
             echo json_encode($data_response);
         }
         else{   
