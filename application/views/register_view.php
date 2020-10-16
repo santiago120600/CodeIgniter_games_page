@@ -35,47 +35,47 @@
     <!-- ============================================================== -->
     <!-- signup form  -->
     <!-- ============================================================== -->
-    <form class="splash-container">
+    <div class="splash-container">
+          <!--Error Message Start-->
+          <?php if($this->session->flashdata('error_msg_reg')){ ?>
+            <div class="alert alert-danger alert-mg-b" role="alert">
+                <?=@$this->session->flashdata('error_msg_reg');?>
+            </div>
+        <?php } ?>
+        <!--Error Message End-->
         <div class="card">
             <div class="card-header">
-                <h3 class="mb-1">Registrations Form</h3>
-                <p>Please enter your user information.</p>
+                <h3 class="mb-1">Register</h3>
+                <p>It's fast and easy.</p>
             </div>
             <div class="card-body">
-                <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="nick" required="" placeholder="Username" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="E-mail" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input class="form-control form-control-lg" id="pass1" type="password" required="" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <input class="form-control form-control-lg" required="" placeholder="Confirm">
-                </div>
-                <div class="form-group pt-2">
-                    <button class="btn btn-block btn-primary" type="submit">Register My Account</button>
-                </div>
-                <div class="form-group">
-                    <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox"><span class="custom-control-label">By creating an account, you agree the <a href="#">terms and conditions</a></span>
-                    </label>
-                </div>
-                <div class="form-group row pt-0">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
-                        <button class="btn btn-block btn-social btn-facebook " type="button">Facebook</button>
+                <?=form_open('Register/user_register');?>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" type="text" name="user_name" placeholder="Username" autocomplete="off" value="<?=@$current_data['user_name'];?>">
+                        <small class="form-text text-danger float-right"><?php echo form_error('user_name'); ?></small>
                     </div>
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <button class="btn  btn-block btn-social btn-twitter" type="button">Twitter</button>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" type="email" name="user_email" placeholder="E-mail" autocomplete="off" value="<?=@$current_data['user_email'];?>">
+                        <small class="form-text text-danger float-right"><?php echo form_error('user_email'); ?></small>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" id="pass1" type="password" placeholder="Password" name="user_pass">
+                        <small class="form-text text-danger float-right"><?php echo form_error('user_pass'); ?></small>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" name="user_pass_conf" type="password" placeholder="Confirm Password">
+                        <small class="form-text text-danger float-right"><?php echo form_error('user_pass_conf'); ?></small>
+                    </div>
+                    <div class="form-group pt-2">
+                        <button class="btn btn-block btn-primary" type="submit">Register</button>
+                    </div>
+                <?=form_close();?>
             </div>
             <div class="card-footer bg-white">
                 <p>Already member? <a href="<?=base_url("Login");?>" class="text-secondary">Login Here.</a></p>
             </div>
         </div>
-    </form>
+    </div>
 </body>
 
  
