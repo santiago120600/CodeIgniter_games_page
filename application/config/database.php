@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'GameRate',
+	'hostname' => 'us-cdbr-east-02.cleardb.com',
+	'username' => 'bc25530034641a',
+	'password' => '779e4a8c',
+	'database' => 'heroku_619f45dc24cffce',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
