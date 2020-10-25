@@ -33,16 +33,25 @@
     <!-- forgot password  -->
     <!-- ============================================================== -->
     <div class="splash-container">
+         <!--Error Message Start-->
+         <?php if($this->session->flashdata('error_msg_forgot')){ ?>
+            <div class="alert alert-danger alert-mg-b" role="alert">
+                <?=@$this->session->flashdata('error_msg_forgot');?>
+            </div>
+        <?php } ?>
+        <!--Error Message End-->
         <div class="card">
-            <div class="card-header text-center"><img class="logo-img" src="../assets/images/logo.png" alt="logo"><span class="splash-description">Please enter your user information.</span></div>
+            <div class="card-header text-center"><span class="splash-description">Please enter your user information.</span></div>
             <div class="card-body">
-                <form>
+                <?=form_open('Forgot_pass/reset_password');?>
                     <p>Don't worry, we'll send you an email to reset your password.</p>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" type="email" name="email" required="" placeholder="Your Email" autocomplete="off">
+                        <input class="form-control form-control-lg" type="email" name="user_email" placeholder="Your Email" autocomplete="off">
                     </div>
-                    <div class="form-group pt-1"><a class="btn btn-block btn-primary btn-xl" href="../index.html">Reset Password</a></div>
-                </form>
+                    <div class="form-group pt-2">
+                        <button class="btn btn-block btn-primary btn-xl" type="submit">Reset Password</button>
+                    </div>
+                <?=form_close();?>
             </div>
             <div class="card-footer text-center">
                 <span>Don't have an account? <a href="<?=base_url("Register");?>">Sign Up</a></span>
