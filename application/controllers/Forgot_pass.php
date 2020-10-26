@@ -34,7 +34,7 @@ class Forgot_pass extends CI_Controller {
 						$this->load->view('forgot_pass_msg',$data);
 					}else{
 						//Cargar vista de hubo error al mandar el correo
-						$this->session->set_flashdata('error_msg_forgot',$this->email->print_debugger());
+						$this->session->set_flashdata('error_msg_forgot','An error occurred');
 						$this->load->view('forgot_pass_view');
 					}
 				}else{
