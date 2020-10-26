@@ -45,7 +45,7 @@
             <div class="card-body">
                 <?=form_open('login/auth', array('class'=>'user'));?>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" type="text" placeholder="Username" name="pEmail" id="username">
+                        <input class="form-control form-control-lg" type="text" placeholder="Email" name="pEmail" id="username">
                     </div>
                     <div class="form-group">
                         <input class="form-control form-control-lg" id="password" type="password" placeholder="Password" name="pPassword">
