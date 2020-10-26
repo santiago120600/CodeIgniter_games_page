@@ -6,7 +6,8 @@ class Register extends CI_Controller {
 	function __construct()
 	{
         parent::__construct();
-        $this->load->model('DAO');
+		$this->load->model('DAO');
+		$this->_isLoggin();
     }
 	
 	public function index()
@@ -64,5 +65,12 @@ class Register extends CI_Controller {
 			}
 		}
 
+	}
+		
+	function _isLoggin(){
+		$session = $this->session->userdata('store_sess');
+		if (@$session->user_email) {
+			redirect('home');
+		}
 	}
 }
