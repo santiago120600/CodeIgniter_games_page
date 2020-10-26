@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h5 class="modal-title">
-        <?php if ($action == 'New') {
+        <?php if ($action == 'new') {
             echo 'New';
         }else if($action=='update'){
             echo 'Update';

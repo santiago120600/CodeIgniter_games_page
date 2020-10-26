@@ -168,4 +168,44 @@ class Games extends MY_RootController {
         }
     }
 
+    function gameInfo($game_id){
+        // funcion para mandar a la pagina de informacion del juego
+        if ($game_id) {
+            //checar que el juego exista
+            $game_exists = $this->DAO->selectEntity('games',array('id_game'=>$game_id),TRUE); 
+            if ($game_exists) {
+                //Cargar la informacion del juego
+                //comentario(opcion de escribir un comentario), calificacion, descripcion del juego, review, trailer
+
+                $this->load->view('includes/header.php');
+                $this->load->view('includes/navbar.php');
+                $data_menu['games_selected'] = true;
+                $this->load->view('includes/sidebar.php',$data_menu);
+                $data_menu['current_section'] = 'Games';
+                $this->load->view('includes/header_page.php',$data_menu);
+
+                // hacer la consulta para traerme los mensajes desde la base de datos, pero traerme solo 
+                // los comentarios de este juego, no todos
+                //usar el game_id para hacer la consulta
+                //where game_id = $game_id
+                $data_container['container_data'] = $this->DAO->selectEntity('comments_vw',array('game_id'=>$game_id)); 
+
+                //cargar vista comments_data_page
+                $data_main['container_data'] = $this->load->view('comments/comments_data_page',$data_container,TRUE);
+                //Mandar esos datos a otra vista
+                $this->load->view('games/games_info',$data_main);
+
+            
+                $this->load->view('includes/footer_page.php');
+                $this->load->view('includes/footer.php');
+                
+            }else{
+                //No existe el id en la BD
+                redirect('Games');
+            }
+        }else{
+
+        }
+    }
+
 }

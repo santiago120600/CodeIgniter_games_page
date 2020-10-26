@@ -10,8 +10,6 @@ CREATE TABLE IF NOT EXISTS users(
     user_password VARCHAR(180) NOT NULL,
     user_status enum('Active','Inactive') default 'Active',
     user_privilege enum('Administrator','Rater') DEFAULT 'Rater',
-    user_temp_password VARCHAR(180),
-    user_update_pass enum('N','S') DEFAULT 'N',
     user_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     user_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP
     );
@@ -43,7 +41,7 @@ CREATE TABLE IF NOT EXISTS games(
     FOREIGN KEY(category_id) REFERENCES categories(id_category)
 );
 
-CREATE TABLE IF NOT EXISTS cometarios(
+CREATE TABLE IF NOT EXISTS comments(
     id_comment INT PRIMARY KEY auto_increment,
     comment TEXT,
     user_id INT,
@@ -54,3 +52,11 @@ CREATE TABLE IF NOT EXISTS cometarios(
     FOREIGN KEY(user_id) REFERENCES users(user_id),
     FOREIGN KEY(game_id) REFERENCES games(id_game)
 ); 
+
+
+INSERT INTO comments(comment,user_id,game_id) VALUES("Este juego es genial",1,1);
+
+-- view para tener el nombre del usuario del comentario
+CREATE OR REPLACE VIEW comments_vw AS SELECT comments.id_comment, comments.comment AS content, comments.user_id, comments.game_id, comments.status_comment, users.user_name, users.user_email, games.name_game FROM comments JOIN games ON comments.game_id = games.id_game JOIN users ON comments.user_id = users.user_id;
+
+SELECT comments.id_comment, comments.comment AS content, comments.user_id, comments.game_id, comments.status_comment, users.user_name, users.user_email, games.name_game FROM comments JOIN games ON comments.game_id = games.id_game JOIN users ON comments.user_id = users.user_id;

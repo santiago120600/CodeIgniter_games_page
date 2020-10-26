@@ -2,7 +2,9 @@
     <?php foreach($container_data as $category){ ?>
         <div class="col-md-3">
             <div class="card">
-                <img src="<?=base_url('uploads/categories/'.$category->icon_category);?>" alt="">
+                <div class="d-flex justify-content-center">
+                    <img src="<?=base_url('uploads/categories/'.$category->icon_category);?>" alt="" width="200" height="150">
+                </div>
                 <div class="card-header"><?=$category->name_category?></div>
                 <div class="card-body"><?=$category->desc_category?></div>
                 <div class="card-footer">
