@@ -85,7 +85,7 @@ class Forgot_pass extends CI_Controller {
 			return true;
 		}else{
 			return false;
-			// echo $this->email->print_debugger();
+			echo $this->email->print_debugger();
 		}
 	}
 	
