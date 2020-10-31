@@ -184,6 +184,9 @@ class Games extends MY_RootController {
                 $data_menu['current_section'] = 'Games';
                 $this->load->view('includes/header_page.php',$data_menu);
 
+                // marndar la informacion del juego
+                $data_main['game_data'] = $this->DAO->selectEntity('games',array('id_game'=>$game_id),TRUE); 
+                
                 // hacer la consulta para traerme los mensajes desde la base de datos, pero traerme solo 
                 // los comentarios de este juego, no todos
                 //usar el game_id para hacer la consulta
@@ -206,6 +209,37 @@ class Games extends MY_RootController {
         }else{
 
         }
+    }
+
+    function saveComment(){
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('comment_input','Comment','required|max_length[500]');
+        $game_id = $this->input->post('game_id_input');
+        if ($this->form_validation->run()) {
+            $data = array( 
+                'comment' => $this->input->post('comment_input'),
+                'game_id' => $this->input->post('game_id_input'),
+                'user_id' => $this->input->post('user_id_input')
+            );
+            $data_response = $this->DAO->saveOrUpdateEntity('comments',$data);
+            //Hacer un if de si salio bien o no
+            if ($data_response['status'] == 'success') {
+                // si sale bien recargar la página a si misma
+                $this->gameInfo($game_id);
+            }else{
+                // si no sale bien mandar error a la vista
+                $error_msg = "Something went wrong";
+				$this->session->set_flashdata('error_commment',$error_msg);
+                $this->gameInfo($game_id);
+            }
+        }else{
+            // cargar de nuevo la pagina de informacion del juego en el que esta
+            //Mandar mensaje de error
+            $error_msg = "Comment can not be empty";
+            $this->session->set_flashdata('error_commment',$error_msg);
+            $this->gameInfo($game_id);
+        }
+
     }
 
 }

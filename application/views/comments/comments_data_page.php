@@ -1,10 +1,12 @@
-<!-- aqui poner un ciclo for que me itere todos los mensajes -->
 <div class="row mt-4">
     <?php foreach($container_data as $comment){ ?>
-        <div class="col-md-3">
+        <div class="col-md-12">
+            <!-- la siguiente deberia tener la clase card -->
             <div class="card">
-                <!-- hacer una consulta que me traiga el nombre o email del usuario con una consulta multi tabla -->
-                <div class="card-header"><?=$comment->user_name?></div>
+                <div class="card-header border-0">
+                    <strong>
+                        <?=$comment->user_name?></div>
+                    </strong>
                 <div class="card-body"><?=$comment->content?></div>
             </div>
         </div>
