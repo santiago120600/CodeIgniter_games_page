@@ -101,6 +101,10 @@ class DAO extends CI_Model {
         }else{
             return false;
         }
+    }
 
+    function deleteElement($entityName,$whereClause=array()){
+        $this->db->where($whereClause);
+        $this->db->delete($entityName);
     }
 }

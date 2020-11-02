@@ -56,8 +56,8 @@
             </div>
             <div class="col-12">
                 <div class="form-group"><label for="desc_category">Description: </label></div>
+                <textarea name="desc_category" class="form-control" id="desc_category"><?=@$current_data['desc_category'];?></textarea>
             </div>
-            <textarea name="desc_category" class="form-control" id="desc_category"><?=@$current_data['desc_category'];?></textarea>
         </div>
     </div>
     <div class="modal-footer">

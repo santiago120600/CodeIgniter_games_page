@@ -28,4 +28,21 @@ class Users extends MY_RootController {
 		$this->load->view('includes/footer_page.php');
 		$this->load->view('includes/footer');
 	}
+
+	public function userInfo(){
+		$this->load->view('includes/header');
+		$this->load->view('includes/navbar.php');
+		$data_menu['users_selected'] = true;
+		$this->load->view('includes/sidebar',$data_menu);
+		$data_menu['current_section'] = 'Users';
+		$this->load->view('includes/header_page.php',$data_menu);
+		// contenido
+		$current_session = $this->session->userdata('store_sess');
+		$data_container['container_data'] = $this->DAO->selectEntity('users',array('user_id'=>$current_session->user_id),TRUE); 
+		$this->load->view('users/user_profile',$data_container);
+
+		// contenido
+		$this->load->view('includes/footer_page.php');
+		$this->load->view('includes/footer');
+	}
 }
