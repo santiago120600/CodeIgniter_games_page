@@ -27,7 +27,7 @@ class Login extends CI_Controller {
 				//Si se introduce user y pass correctos
 				if ($user_exists['status'] == 'success') {
 					$this->session->set_userdata('store_sess',$user_exists['data']);
-					redirect('home');
+					redirect('news');
 				}else{
 					//Regresar el error
 					$this->session->set_flashdata('error_msg',$user_exists['message']);
@@ -49,7 +49,7 @@ class Login extends CI_Controller {
 	function _isLoggin(){
 		$session = $this->session->userdata('store_sess');
 		if (@$session->user_email) {
-			redirect('home');
+			redirect('news');
 		}
 	}
 }
