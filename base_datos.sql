@@ -5,7 +5,7 @@ USE GameRate;
 CREATE TABLE IF NOT EXISTS users(
     user_id INT PRIMARY KEY auto_increment,
     user_name varchar(60) NOT NULL,
-    user_img VARCHAR(180),
+    user_img VARCHAR(180) DEFAULT 'user_default_img.png',
     user_email VARCHAR(120) UNIQUE NOT NULL,
     user_password VARCHAR(180) NOT NULL,
     user_status enum('Active','Inactive') default 'Active',
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS categories(
     updated_category timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP 
 );
 
-CREATE OR REPLACE VIEW session_vw AS SELECT user_id,user_email,user_password,user_update_pass,user_status,user_privilege from users;
+CREATE OR REPLACE VIEW session_vw AS SELECT user_id,user_name,user_img,user_email,user_password,user_update_pass,user_status,user_privilege from users;
 -- INSERT INTO users(user_email,user_privilege,user_password) VALUES('demo@demo.com','Administrator','123x');
 
 CREATE TABLE IF NOT EXISTS games(

@@ -37,12 +37,15 @@ class Users extends MY_RootController {
 		$data_menu['current_section'] = 'Users';
 		$this->load->view('includes/header_page.php',$data_menu);
 		// contenido
-		$current_session = $this->session->userdata('store_sess');
-		$data_container['container_data'] = $this->DAO->selectEntity('users',array('user_id'=>$current_session->user_id),TRUE); 
-		$this->load->view('users/user_profile',$data_container);
+		$data['container_data'] = $this->session->userdata('store_sess');
+		$this->load->view('users/user_profile',$data);
 
 		// contenido
 		$this->load->view('includes/footer_page.php');
 		$this->load->view('includes/footer');
+	}
+
+	public function userEdit(){
+		echo "Hola";
 	}
 }
