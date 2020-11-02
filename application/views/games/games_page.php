@@ -13,7 +13,7 @@
                             <div class="row">
                                 <div class="col-md-12 col-lg-12">
                                 <div class="alert alert-secondary">
-                                        <button class="btn btn-danger" data-toggle="modal" data-target="#modalView" id="openModal" data-opt="new"><i class="fa fa-plus"></i>  New Game</button>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalView" id="openModal" data-opt="new"><i class="fa fa-plus"></i>  New Game</button>
                                     </div>
                                 </div>
                             </div>
