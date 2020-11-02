@@ -12,8 +12,24 @@
                         <img src="<?=base_url('uploads/games/'.$game->img_game);?>" alt="" width="200" height="150">
                     </a>
                 </div>
-                <div class="card-header"><?=$game->name_game?></div>
-                <div class="card-body"><?=$game->desc_game?></div>
+                <div class="card-header"><h3><?=$game->name_game?></h3></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            Description:
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <?=$game->desc_game?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Rate: <?=$game->rate?>
+                        </div>
+                    </div>
+                </div>
                 <?php if ($current_session->user_privilege == 'Administrator') {
                     ?> 
                         <div class="card-footer">

@@ -107,4 +107,5 @@ class DAO extends CI_Model {
         $this->db->where($whereClause);
         $this->db->delete($entityName);
     }
+
 }

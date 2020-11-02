@@ -49,7 +49,7 @@
                     <div class="align-self-center">
                         <!-- gauge chart here -->
                         <h1>Rate</h1>
-                        <h1>10</h1>
+                        <h1><?=$game_data->rate?></h1>
                     </div>
                 </div>
             </div>

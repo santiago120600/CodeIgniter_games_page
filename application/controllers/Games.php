@@ -22,7 +22,7 @@ class Games extends MY_RootController {
             $category_exists = $this->DAO->selectEntity('categories',array('id_category'=>$category_id),TRUE); 
             if ($category_exists) {
                 $data_container['category_selected'] = $category_exists;
-                $data_container['games_data'] = $this->DAO->selectEntity('games',array('category_id'=>$category_id));
+                $data_container['games_data'] = $this->DAO->selectEntity('rates_vw',array('category_id'=>$category_id));
                 
                 $data_js['category_selected'] = $category_id;
             }else{
@@ -33,7 +33,7 @@ class Games extends MY_RootController {
         }else {
             //No se mandó un id 
             //Mostrar todos los productos
-            $data_container['games_data'] = $this->DAO->selectEntity('games');
+            $data_container['games_data'] = $this->DAO->selectEntity('rates_vw');
             $data_js['category_selected'] = null;
         }
 
@@ -168,11 +168,11 @@ class Games extends MY_RootController {
         }
     }
 
-    function gameInfo($game_id){
+    function gameInfo($game_id = null){
         // funcion para mandar a la pagina de informacion del juego
         if ($game_id) {
             //checar que el juego exista
-            $game_exists = $this->DAO->selectEntity('games',array('id_game'=>$game_id),TRUE); 
+            $game_exists = $this->DAO->selectEntity('rates_vw',array('id_game'=>$game_id),TRUE); 
             if ($game_exists) {
                 //Cargar la informacion del juego
                 //comentario(opcion de escribir un comentario), calificacion, descripcion del juego, review, trailer
@@ -185,7 +185,7 @@ class Games extends MY_RootController {
                 $this->load->view('includes/header_page.php',$data_menu);
 
                 // marndar la informacion del juego
-                $data_main['game_data'] = $this->DAO->selectEntity('games',array('id_game'=>$game_id),TRUE); 
+                $data_main['game_data'] = $this->DAO->selectEntity('rates_vw',array('id_game'=>$game_id),TRUE); 
                 
                 // hacer la consulta para traerme los mensajes desde la base de datos, pero traerme solo 
                 // los comentarios de este juego, no todos
@@ -207,7 +207,18 @@ class Games extends MY_RootController {
                 redirect('Games');
             }
         }else{
+            $this->load->view('includes/header.php');
+            $this->load->view('includes/navbar.php');
+            $data_menu['games_selected'] = true;
+            $this->load->view('includes/sidebar.php',$data_menu);
+            $data_menu['current_section'] = 'Games';
+            $this->load->view('includes/header_page.php',$data_menu);
 
+            $data['message'] = "Oops! there's no games here";
+            $this->load->view('custom_message.php',$data);
+
+            $this->load->view('includes/footer_page.php');
+            $this->load->view('includes/footer.php');
         }
     }
 
