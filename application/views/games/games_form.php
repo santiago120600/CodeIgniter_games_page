@@ -77,7 +77,7 @@
                                             </small>
                                         <?php } ?>
                                     <?php } else { ?>
-                                        <img src="<?=base_url('uploads/'.$current_data['icon_category']);?>" class="card-img-top" alt="...">
+                                        <img src="<?=base_url('uploads/games/'.$current_data['img_game']);?>" class="card-img-top" alt="...">
                                         <?php } ?>
                                 </div>
                             </div>

@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS games(
     img_game VARCHAR(180),
     trailer_game VARCHAR(180),
     status_game ENUM('Active','Inactive') DEFAULT 'Active',
-    FOREIGN KEY(category_id) REFERENCES categories(id_category),
+    FOREIGN KEY(category_id) REFERENCES categories(id_category) ON DELETE CASCADE,
     created_game timestamp default current_timestamp,
     update_game timestamp default current_timestamp on update current_timestamp
 );
@@ -46,8 +46,8 @@ CREATE TABLE IF NOT EXISTS comments(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
     status_comment ENUM('Active','Inactive') DEFAULT 'Active',
-    FOREIGN KEY(user_id) REFERENCES users(user_id),
-    FOREIGN KEY(game_id) REFERENCES games(id_game), 
+    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY(game_id) REFERENCES games(id_game) ON DELETE CASCADE, 
     created_comment timestamp default current_timestamp,
     update_comment timestamp default current_timestamp on update current_timestamp
 ); 
@@ -65,8 +65,8 @@ CREATE TABLE game_rate(
     rate INT NOT NULL,
     user_id INT NOT NULL,
     game_id INT NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(user_id),
-    FOREIGN KEY(game_id) REFERENCES games(id_game),
+    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY(game_id) REFERENCES games(id_game) ON DELETE CASCADE,
     created_rate timestamp default current_timestamp,
     update_rate timestamp default current_timestamp on update current_timestamp
 );
