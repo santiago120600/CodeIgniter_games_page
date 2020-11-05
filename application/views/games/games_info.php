@@ -32,7 +32,7 @@
         <div class="col">
             <!-- el trailer tiene que ser de acuerdo al juego -->
             <div class="iframe-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/8PdGUZauShA" frameborder="0"
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/<?=$game_data->trailer_game?>" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
