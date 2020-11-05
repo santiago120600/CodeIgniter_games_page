@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS categories(
     id_category smallint PRIMARY KEY auto_increment,
     name_category VARCHAR(50) NOT NULL,
     desc_category TEXT,
-    icon_category VARCHAR(180),
+    icon_category VARCHAR(180) DEFAULT 'placeholder.jpg',
     status_category enum('Active','Inactive') default 'Active',
     created_category timestamp default CURRENT_TIMESTAMP,
     updated_category timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS games(
     name_game VARCHAR(60) NOT NULL,
     desc_game text,
     category_id SMALLINT NOT NULL,
-    img_game VARCHAR(180),
+    img_game VARCHAR(180) DEFAULT 'placeholder.jpg',
     trailer_game VARCHAR(180),
     status_game ENUM('Active','Inactive') DEFAULT 'Active',
     FOREIGN KEY(category_id) REFERENCES categories(id_category) ON DELETE CASCADE,
