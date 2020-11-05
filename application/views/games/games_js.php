@@ -61,4 +61,13 @@ $(function() {
 
 
 });
+
+function load_data(){
+        $.ajax({
+                'url' : '<?=base_url('games/showDataContainer');?>',
+                'success' : function(response){
+                    $(document).find('#data_container').empty().append(response);
+                }
+            })
+    }
 </script>

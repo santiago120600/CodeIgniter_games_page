@@ -53,6 +53,12 @@ class Games extends MY_RootController {
         $this->load->view('games/games_js',$data_js);	
     }
 
+    public function showDataContainer()
+    {        
+        $data_container['games_data'] = $this->DAO->selectEntity('rates_vw');
+        echo $this->load->view('games/games_data_page',$data_container,TRUE);
+    }
+
     public function showGameForm(){
         //si mando un id traer la categoria con ese id
         if ($this->input->get('category_id')) {
