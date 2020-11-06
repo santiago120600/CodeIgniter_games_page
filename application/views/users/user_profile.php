@@ -12,6 +12,6 @@
     </div>
     <div class="row d-flex justify-content-center mb-5">
         <div class="col-4">
-            <a href="<?=base_url('users/userEdit');?>" class="btn btn-primary btn-block">Edit profile</a>
+            <a href="<?=base_url('users/editMenu');?>" class="btn btn-primary btn-block">Edit profile</a>
         </div>
     </div>
