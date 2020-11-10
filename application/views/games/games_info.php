@@ -29,10 +29,11 @@
 
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <!-- el trailer tiene que ser de acuerdo al juego -->
             <div class="iframe-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/<?=$game_data->trailer_game?>" frameborder="0"
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/<?=$game_data->trailer_game?>"
+                    frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
                 </iframe>
@@ -40,10 +41,10 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 d-flex justify-content-center">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 d-flex justify-content-center mb-3">
             <img src="<?=base_url('uploads/games/'.$game_data->img_game);?>" alt="" width="206" height="315">
         </div>
-        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+        <div class="col-xl-6 col-lg-9 col-md-12 col-sm-12 col-12 mb-3">
             <div class="card w-100 h-100">
                 <div class="card-body d-flex justify-content-center">
                     <div class="align-self-center">
@@ -54,11 +55,35 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+            <div class="card w-100 h-100">
+                <div class="card-body d-flex justify-content-center">
+                    <div class="align-self-center">
+                        <h1>Rate this game</h1>
+                        <form action="">
+                            <select class="form-control">
+                                <option>10</option>
+                                <option>9</option>
+                                <option>8</option>
+                                <option>7</option>
+                                <option>6</option>
+                                <option>5</option>
+                                <option>4</option>
+                                <option>3</option>
+                                <option>2</option>
+                                <option>1</option>
+                                <option>0</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row mt-3">
         <div class="col-md-12 col-lg-12">
-             <!--Error Message Start-->
-             <?php if($this->session->flashdata('error_commment')){ ?>
+            <!--Error Message Start-->
+            <?php if($this->session->flashdata('error_commment')){ ?>
             <div class="alert alert-danger alert-mg-b" role="alert">
                 <?=@$this->session->flashdata('error_commment');?>
             </div>
@@ -67,17 +92,17 @@
             <div class="card">
                 <div class="card-body">
                     <?=form_open('Games/saveComment');?>
-                        <div class="row">
-                            <input type="hidden" value="<?=$current_session->user_id ?>" name="user_id_input">
-                            <input type="hidden" value="<?=$game_data->id_game?>" name="game_id_input">
-                            <div class="col-xl-11 col-lg-11 col-md-10 col-sm-9 col-9">
-                                <textarea type="text" class="form-control" placeholder="Add a comment" name="comment_input"></textarea>
-                            </div>
-                            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">
-                                <button class="btn btn-primary" type="submit"><i
-                                        class="far fa-paper-plane"></i></button>
-                            </div>
+                    <div class="row">
+                        <input type="hidden" value="<?=$current_session->user_id ?>" name="user_id_input">
+                        <input type="hidden" value="<?=$game_data->id_game?>" name="game_id_input">
+                        <div class="col-xl-11 col-lg-11 col-md-10 col-sm-9 col-9">
+                            <textarea type="text" class="form-control" placeholder="Add a comment"
+                                name="comment_input"></textarea>
                         </div>
+                        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-2 col-2">
+                            <button class="btn btn-primary" type="submit"><i class="far fa-paper-plane"></i></button>
+                        </div>
+                    </div>
                     <?=form_close();?>
                 </div>
             </div>
