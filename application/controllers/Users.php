@@ -72,4 +72,51 @@ class Users extends MY_RootController {
 		$this->load->view('includes/footer_page.php');
 		$this->load->view('includes/footer');
 	}
+
+	public function updatePass(){
+		if ($this->input->post()) {
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('old_pass','Old password','required');
+			$this->form_validation->set_rules('new_pass','New password','required');
+			$this->form_validation->set_rules('conf_new_pass','Confirm new password','required');
+			$this->form_validation->set_rules('user_id','Id','required');
+			if ($this->form_validation->run() == FALSE) {
+				//Si no valida
+				//mandar errores
+				$this->session->set_flashdata('error_msg_pass_update','password was not send',1);
+				$this->editMenu('account_security');
+			}else {
+				$old_pass = $this->input->post('old_pass');
+				$new_pass = $this->input->post('new_pass');
+				$confirm_new_pass = $this->input->post('conf_new_pass');
+				$user_id = $this->input->post('user_id');
+
+				$user_inf = $this->DAO->selectEntity('users',array('user_id'=>$user_id),true);
+				if ($user_inf->user_password == $old_pass) {
+					if ($new_pass == $confirm_new_pass) {
+						$data = array(
+							'user_password' => $new_pass
+						);
+						$data_response = $this->DAO->saveOrUpdateEntity('users',$data,$where_clause = array('user_id'=>$user_id));
+						$this->session->set_flashdata('success_msg','Password updated successfully',1);
+						$this->editMenu('account_security');
+						//mandar mensaje de que se ha cambiado su contraseña exitosamente
+					}else{
+						//mandar error que no son iguales las nuevas contraseñas
+						$this->session->set_flashdata('error_msg_pass_update','password do not match',1);
+						$this->editMenu('account_security');
+					}
+				}else{
+					// si la contraseña que puso como su vieja pass no es 
+					$this->session->set_flashdata('error_msg_pass_update','password do not match',1);
+					$this->editMenu('account_security');
+				}
+			}
+		}else{
+			//no se envio nada por post
+			//Mandar error
+			$this->session->set_flashdata('error_msg_pass_update','password was not send',1);
+			$this->editMenu('account_security');
+		}
+	}
 }

@@ -8,12 +8,16 @@ class Forgot_pass extends CI_Controller {
 		parent::__construct();
 		$this->load->model('DAO');
 		$this->load->config('email');
-		$this->_isLoggin();
     }
 	
 	public function index()
 	{
-		$this->load->view('forgot_pass_view');
+		if ($this->_isLoggin()) {
+			$data['session_active'] = true;
+		}else{
+			$data['session_active'] = false;
+		}
+		$this->load->view('forgot_pass_view',$data);
 	}
 
 	public function reset_password(){
@@ -144,7 +148,9 @@ class Forgot_pass extends CI_Controller {
 	function _isLoggin(){
 		$session = $this->session->userdata('store_sess');
 		if (@$session->user_email) {
-			redirect('home');
+			return true;
+		}else{
+			return false;
 		}
 	}
 }

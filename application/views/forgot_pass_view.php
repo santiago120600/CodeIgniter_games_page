@@ -53,17 +53,27 @@
                     </div>
                 <?=form_close();?>
             </div>
-            <div class="card-footer text-center">
-                <span>Don't have an account? <a href="<?=base_url("Register");?>">Sign Up</a></span>
-            </div>
+            <!-- si hay sesion no mostrar footer -->
+            <?php if (!$session_active) {
+                ?>
+                    <div class="card-footer text-center">
+                        <span>Don't have an account? <a href="<?=base_url("Register");?>">Sign Up</a></span>
+                    </div>
+                <?php
+            }else{
+                ?>
+                    <div class="card-footer text-center">
+                        <span>Changed your mind? <a href="<?=base_url("News");?>">Go to Dashboard</a></span>
+                    </div>
+                <?php
+            }
+            ?>
+
         </div>
     </div>
     <!-- ============================================================== -->
     <!-- end forgot password  -->
     <!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 
  
