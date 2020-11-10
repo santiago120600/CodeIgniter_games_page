@@ -48,16 +48,16 @@ class Users extends MY_RootController {
 	public function editMenu($menu = null){
 		$session = $this->session->userdata('store_sess');
 		$data_container['container_data'] = $this->DAO->selectEntity('session_vw',array('user_id'=>$session->user_id),TRUE); 
-		if($menu=='profile'){
-			$data_main['container_data'] = $this->load->view('users/edits/user_profile_edit_view',$data_container,TRUE);
-		}
-		elseif($menu=='account'){
+		if($menu=='account'){
 			$data_main['container_data'] = $this->load->view('users/edits/user_account_edit_view',$data_container,TRUE);
+			$data_main['account_selected'] = true;
 		}
 		elseif($menu=='account_security'){
 			$data_main['container_data'] = $this->load->view('users/edits/user_account_security_edit',$data_container,TRUE);
+			$data_main['account_security_selected'] = true;
 		}else{
 			$data_main['container_data'] = $this->load->view('users/edits/user_profile_edit_view',$data_container,TRUE);
+			$data_main['profile_selected'] = true;
 		}
 
 		$this->load->view('includes/header');
