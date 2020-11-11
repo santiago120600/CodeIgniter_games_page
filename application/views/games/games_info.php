@@ -57,24 +57,47 @@
         </div>
         <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
             <div class="card w-100 h-100">
+                    <!--success Message Start-->
+                    <?php if($this->session->flashdata('success_msg_rate')){ ?>
+                        <div class="alert alert-success alert-mg-b" role="alert">
+                            <?=@$this->session->flashdata('success_msg_rate');?>
+                        </div>
+                    <?php } ?>
+                    <!--success Message End-->
+                    <!--Error Message Start-->
+                    <?php if($this->session->flashdata('error_msg_rate')){ ?>
+                        <div class="alert alert-danger alert-mg-b" role="alert">
+                            <?=@$this->session->flashdata('error_msg_rate');?>
+                        </div>
+                    <?php } ?>
+                    <!--Error Message End-->
                 <div class="card-body d-flex justify-content-center">
+
                     <div class="align-self-center">
-                        <h1>Rate this game</h1>
-                        <form action="">
-                            <select class="form-control">
-                                <option>10</option>
-                                <option>9</option>
-                                <option>8</option>
-                                <option>7</option>
-                                <option>6</option>
-                                <option>5</option>
-                                <option>4</option>
-                                <option>3</option>
-                                <option>2</option>
-                                <option>1</option>
-                                <option>0</option>
-                            </select>
-                        </form>
+                        <h1 class="text-center">Rate this game</h1>
+                        <?=form_open('Games/rateGame');?>
+                        <input type="hidden" value="<?=$current_session->user_id ?>" name="user_id_input">
+                        <input type="hidden" value="<?=$game_data->id_game?>" name="game_id_input">
+                        <select class="form-control" name="rater">
+                            <option disabled>Rate this game</option>
+                            <option value="10">10</option>
+                            <option value="9">9</option>
+                            <option value="8">8</option>
+                            <option value="7">7</option>
+                            <option value="6">6</option>
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                        </select>
+                        <div class="row mt-2">
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-primary" type="submit">Send</button>
+                            </div>
+                        </div>
+                        <?=form_close();?>
                     </div>
                 </div>
             </div>

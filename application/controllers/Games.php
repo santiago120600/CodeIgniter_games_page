@@ -1,152 +1,155 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Games extends MY_RootController {
+class Games extends MY_RootController
+{
 
-	function __construct()
-	{
+    public function __construct()
+    {
         parent::__construct();
         $this->__validateSession();
         $this->load->model('DAO');
 
     }
-    
-    public function index(){
+
+    public function index()
+    {
         redirect('Games/initial');
     }
 
-    public function initial($category_id = null){
+    public function initial($category_id = null)
+    {
         //Se mandó un id
         if ($category_id) {
-            //Checar si el id de la categoria existe 
-            $category_exists = $this->DAO->selectEntity('categories',array('id_category'=>$category_id),TRUE); 
+            //Checar si el id de la categoria existe
+            $category_exists = $this->DAO->selectEntity('categories', array('id_category' => $category_id), true);
             if ($category_exists) {
                 $data_container['category_selected'] = $category_exists;
-                $data_container['games_data'] = $this->DAO->selectEntity('rates_vw',array('category_id'=>$category_id));
-                
+                $data_container['games_data'] = $this->DAO->selectEntity('rates_vw', array('category_id' => $category_id));
+
                 $data_js['category_selected'] = $category_id;
-            }else{
+            } else {
                 //No existe el id en la BD
                 redirect('categories');
             }
-            
-        }else {
-            //No se mandó un id 
+
+        } else {
+            //No se mandó un id
             //Mostrar todos los productos
             $data_container['games_data'] = $this->DAO->selectEntity('rates_vw');
             $data_js['category_selected'] = null;
         }
 
         $this->load->view('includes/header');
-		$this->load->view('includes/navbar.php');
+        $this->load->view('includes/navbar.php');
         $data_menu['games_selected'] = true;
-        $this->load->view('includes/sidebar',$data_menu);
-		$data_menu['current_section'] = 'Games';
-        $this->load->view('includes/header_page.php',$data_menu);
-        
-        $data_main['container_data'] = $this->load->view('games/games_data_page',$data_container,TRUE);
-        $this->load->view('games/games_page',$data_main);
-        
+        $this->load->view('includes/sidebar', $data_menu);
+        $data_menu['current_section'] = 'Games';
+        $this->load->view('includes/header_page.php', $data_menu);
+
+        $data_main['container_data'] = $this->load->view('games/games_data_page', $data_container, true);
+        $this->load->view('games/games_page', $data_main);
+
         $data_footer['modal_size'] = "modal-lg";
-		$this->load->view('includes/footer_page.php');
-        $this->load->view('includes/footer',$data_footer);
-        $this->load->view('games/games_js',$data_js);	
+        $this->load->view('includes/footer_page.php');
+        $this->load->view('includes/footer', $data_footer);
+        $this->load->view('games/games_js', $data_js);
     }
 
     public function showDataContainer()
-    {        
+    {
         $data_container['games_data'] = $this->DAO->selectEntity('rates_vw');
-        echo $this->load->view('games/games_data_page',$data_container,TRUE);
+        echo $this->load->view('games/games_data_page', $data_container, true);
     }
 
-    public function showGameForm(){
+    public function showGameForm()
+    {
         //si mando un id traer la categoria con ese id
         if ($this->input->get('category_id')) {
-            $data_view['category_exists'] = $this->DAO->selectEntity('categories',array('id_category'=>$this->input->get('category_id')),TRUE);
-        }else {
+            $data_view['category_exists'] = $this->DAO->selectEntity('categories', array('id_category' => $this->input->get('category_id')), true);
+        } else {
             //traer todas las categorias si no viene id
             $data_view['category_list'] = $this->DAO->selectEntity('categories');
         }
-        $data_view['action']=$this->input->get('action') ? $this->input->get('action') : 'new';
+        $data_view['action'] = $this->input->get('action') ? $this->input->get('action') : 'new';
         if ($this->input->get('key')) {
-            $data  = $this->DAO->selectEntity('games',array('id_game'=>$this->input->get('key')),TRUE);
+            $data = $this->DAO->selectEntity('games', array('id_game' => $this->input->get('key')), true);
             $data_view['current_data'] = (array) $data;
         }
-            echo $this->load->view('games/games_form',$data_view,TRUE);
+        echo $this->load->view('games/games_form', $data_view, true);
     }
 
-    public function saveOrUpdate(){
+    public function saveOrUpdate()
+    {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('name_game','Nombre','required|min_length[3]|max_length[60]');
-        $this->form_validation->set_rules('desc_game','Descripci&oacute;n','required');
+        $this->form_validation->set_rules('name_game', 'Nombre', 'required|min_length[3]|max_length[60]');
+        $this->form_validation->set_rules('desc_game', 'Descripci&oacute;n', 'required');
 
         //Pendiente validar que exista
-        $this->form_validation->set_rules('category','Categor&iacute;a','required');
+        $this->form_validation->set_rules('category', 'Categor&iacute;a', 'required');
 
-        $this->form_validation->set_rules('game_picture','pic','callback_valid_pic');
+        $this->form_validation->set_rules('game_picture', 'pic', 'callback_valid_pic');
         if ($this->form_validation->run()) {
             //lo va a hacer new y edit
             if ($this->input->post('form_action') != "delete") {
                 $uploaded_file = false;
                 //si es nuevo guardar
-                if ($this->input->post('form_action')== 'new') {
-                    $config['upload_path']          = './uploads/games';
-                    $config['allowed_types']        = 'jpg|png';
-                    $config['max_size']             = 2048;
-                    $config['file_name'] = time();    
-                    $this->load->library('upload',$config);
+                if ($this->input->post('form_action') == 'new') {
+                    $config['upload_path'] = './uploads/games';
+                    $config['allowed_types'] = 'jpg|png';
+                    $config['max_size'] = 2048;
+                    $config['file_name'] = time();
+                    $this->load->library('upload', $config);
 
                     $uploaded_file = $this->upload->do_upload('game_picture');
                 }
 
                 //Si se subio la imagen y es un nuevo registro, guardar
-                if ($uploaded_file && $this->input->post('form_action')== 'new') {
+                if ($uploaded_file && $this->input->post('form_action') == 'new') {
                     $data = array(
                         "img_game" => $this->upload->data()['file_name'],
                         "name_game" => $this->input->post('name_game'),
                         "desc_game" => $this->input->post('desc_game'),
-                        "category_id" => $this->input->post('category')
+                        "category_id" => $this->input->post('category'),
                     );
-                }else if(!$uploaded_file && $this->input->post('form_action')== 'new'){
+                } else if (!$uploaded_file && $this->input->post('form_action') == 'new') {
                     //si no se guardo la imagen
                     $data_response = array(
                         "status" => "error",
                         "message" => "Error al subir la foto",
-                        "data" =>  $this->load->view('games/games_form',$data,TRUE)
+                        "data" => $this->load->view('games/games_form', $data, true),
                     );
                     echo json_encode($data_response);
-                }else{
+                } else {
                     //Editar
                     $data = array(
                         "name_game" => $this->input->post('name_game'),
                         "desc_game" => $this->input->post('desc_game'),
-                        "category_id" => $this->input->post('category')
+                        "category_id" => $this->input->post('category'),
                     );
                 }
-            }else {
+            } else {
                 $data = array(
-                    "status_game" => "Inactive"
+                    "status_game" => "Inactive",
                 );
             }
             //Edit
             if ($this->input->post('form_action') != 'new') {
-                $where_clause = array('id_game'=> $this->input->post('id_game'));
-            }else {
-                $where_clause=array();
+                $where_clause = array('id_game' => $this->input->post('id_game'));
+            } else {
+                $where_clause = array();
             }
-            $data_response = $this->DAO->saveOrUpdateEntity('games',$data,$where_clause);
+            $data_response = $this->DAO->saveOrUpdateEntity('games', $data, $where_clause);
             echo json_encode($data_response);
-        }
-        else{   
+        } else {
 
             //Para que siga apareciendo la categoria si los datos en el formulario fueron incorrectos
             if ($this->input->post('category')) {
-                $data['category_exists'] = $this->DAO->selectEntity('categories',array('id_category'=>$this->input->get('category_id')),TRUE);
-            }else {
+                $data['category_exists'] = $this->DAO->selectEntity('categories', array('id_category' => $this->input->get('category_id')), true);
+            } else {
                 //traer todas las categorias si no viene id
                 $data['category_list'] = $this->DAO->selectEntity('categories');
             }
-
 
             $data['action'] = $this->input->post('form_action');
             $data['errors'] = $this->form_validation->error_array();
@@ -154,31 +157,32 @@ class Games extends MY_RootController {
             $data_response = array(
                 "status" => "warning",
                 "message" => "Información incorrecta, valida los campos!",
-                "data" =>  $this->load->view('games/games_form',$data,TRUE)
+                "data" => $this->load->view('games/games_form', $data, true),
             );
             echo json_encode($data_response);
         }
     }
 
-    function valid_pic($value){
+    public function valid_pic($value)
+    {
         if (empty($_FILES['game_picture']['name'])) {
             if ($this->input->post('id_game')) {
                 return true;
-            }else {
-                $this->form_validation->set_message('valid_pic','The {field} is required');
+            } else {
+                $this->form_validation->set_message('valid_pic', 'The {field} is required');
                 return false;
             }
-        }
-        else{
+        } else {
             return true;
         }
     }
 
-    function gameInfo($game_id = null){
+    public function gameInfo($game_id = null)
+    {
         // funcion para mandar a la pagina de informacion del juego
         if ($game_id) {
             //checar que el juego exista
-            $game_exists = $this->DAO->selectEntity('rates_vw',array('id_game'=>$game_id),TRUE); 
+            $game_exists = $this->DAO->selectEntity('rates_vw', array('id_game' => $game_id), true);
             if ($game_exists) {
                 //Cargar la informacion del juego
                 //comentario(opcion de escribir un comentario), calificacion, descripcion del juego, review, trailer
@@ -186,77 +190,118 @@ class Games extends MY_RootController {
                 $this->load->view('includes/header.php');
                 $this->load->view('includes/navbar.php');
                 $data_menu['games_selected'] = true;
-                $this->load->view('includes/sidebar.php',$data_menu);
+                $this->load->view('includes/sidebar.php', $data_menu);
                 $data_menu['current_section'] = 'Games';
-                $this->load->view('includes/header_page.php',$data_menu);
+                $this->load->view('includes/header_page.php', $data_menu);
 
                 // marndar la informacion del juego
-                $data_main['game_data'] = $this->DAO->selectEntity('rates_vw',array('id_game'=>$game_id),TRUE); 
-                
-                // hacer la consulta para traerme los mensajes desde la base de datos, pero traerme solo 
+                $data_main['game_data'] = $this->DAO->selectEntity('rates_vw', array('id_game' => $game_id), true);
+
+                // hacer la consulta para traerme los mensajes desde la base de datos, pero traerme solo
                 // los comentarios de este juego, no todos
                 //usar el game_id para hacer la consulta
                 //where game_id = $game_id
-                $data_container['container_data'] = $this->DAO->selectEntity('comments_vw',array('game_id'=>$game_id)); 
+                $data_container['container_data'] = $this->DAO->selectEntity('comments_vw', array('game_id' => $game_id));
 
                 //cargar vista comments_data_page
-                $data_main['container_data'] = $this->load->view('comments/comments_data_page',$data_container,TRUE);
+                $data_main['container_data'] = $this->load->view('comments/comments_data_page', $data_container, true);
                 //Mandar esos datos a otra vista
-                $this->load->view('games/games_info',$data_main);
+                $this->load->view('games/games_info', $data_main);
 
-            
                 $this->load->view('includes/footer_page.php');
                 $this->load->view('includes/footer.php');
-                
-            }else{
+
+            } else {
                 //No existe el id en la BD
                 redirect('Games');
             }
-        }else{
+        } else {
             $this->load->view('includes/header.php');
             $this->load->view('includes/navbar.php');
             $data_menu['games_selected'] = true;
-            $this->load->view('includes/sidebar.php',$data_menu);
+            $this->load->view('includes/sidebar.php', $data_menu);
             $data_menu['current_section'] = 'Games';
-            $this->load->view('includes/header_page.php',$data_menu);
+            $this->load->view('includes/header_page.php', $data_menu);
 
             $data['message'] = "Oops! there's no games here";
-            $this->load->view('custom_message.php',$data);
+            $this->load->view('custom_message.php', $data);
 
             $this->load->view('includes/footer_page.php');
             $this->load->view('includes/footer.php');
         }
     }
 
-    function saveComment(){
+    public function saveComment()
+    {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('comment_input','Comment','required|max_length[500]');
+        $this->form_validation->set_rules('comment_input', 'Comment', 'required|max_length[500]');
         $game_id = $this->input->post('game_id_input');
         if ($this->form_validation->run()) {
-            $data = array( 
+            $data = array(
                 'comment' => $this->input->post('comment_input'),
                 'game_id' => $this->input->post('game_id_input'),
-                'user_id' => $this->input->post('user_id_input')
+                'user_id' => $this->input->post('user_id_input'),
             );
-            $data_response = $this->DAO->saveOrUpdateEntity('comments',$data);
+            $data_response = $this->DAO->saveOrUpdateEntity('comments', $data);
             //Hacer un if de si salio bien o no
             if ($data_response['status'] == 'success') {
                 // si sale bien recargar la página a si misma
                 $this->gameInfo($game_id);
-            }else{
+            } else {
                 // si no sale bien mandar error a la vista
                 $error_msg = "Something went wrong";
-				$this->session->set_flashdata('error_commment',$error_msg);
+                $this->session->set_flashdata('error_commment', $error_msg);
                 $this->gameInfo($game_id);
             }
-        }else{
+        } else {
             // cargar de nuevo la pagina de informacion del juego en el que esta
             //Mandar mensaje de error
             $error_msg = "Comment can not be empty";
-            $this->session->set_flashdata('error_commment',$error_msg);
+            $this->session->set_flashdata('error_commment', $error_msg);
             $this->gameInfo($game_id);
         }
 
+    }
+
+    public function rateGame()
+    {
+        if ($this->input->post()) {
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('rater', 'Rate', 'required');
+            $this->form_validation->set_rules('game_id_input', 'Game id', 'required');
+            $this->form_validation->set_rules('user_id_input', 'user id', 'required');
+            if ($this->form_validation->run() == false) {
+                //mandar el error
+                $this->session->set_flashdata('error_msg_rate', 'No information sent', 1);
+                $this->gameInfo($this->input->post('game_id_input'));
+            } else {
+                //checar en base de datos si este we ya califico este juego para que entonces no se guarde como otro registro sino que se haga update
+                $value = number_format($this->input->post('rater'));
+                $data = array(
+                    'rate' => $value,
+                    'user_id' => $this->input->post('user_id_input'),
+                    'game_id' => $this->input->post('game_id_input'),
+                );
+                $data_response = $this->DAO->saveOrUpdateEntity('game_rate', $data);
+                if ($data_response['status'] == "success") {
+                    // echo $data_response['message'];
+                    // mandar mensaje de que se guardo su rate
+                    $this->session->set_flashdata('success_msg_rate', $data_response['message'], 1);
+                    $this->gameInfo($this->input->post('game_id_input'));
+                } else {
+                    // si hubo error al guardar
+                    //mandar error
+                    // echo $data_response['message'];
+                    $this->session->set_flashdata('error_msg_rate', $data_response['message'], 1);
+                    $this->gameInfo($this->input->post('game_id_input'));
+                }
+            }
+        } else {
+            // mandar error de que se deben mandar datos
+            // hacer correccciones por si no se manda el game_id
+            $this->session->set_flashdata('error_msg_rate', 'No information sent', 1);
+            $this->gameInfo($this->input->post('game_id_input'));
+        }
     }
 
 }
