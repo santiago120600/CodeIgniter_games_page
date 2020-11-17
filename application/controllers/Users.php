@@ -119,4 +119,26 @@ class Users extends MY_RootController {
 			$this->editMenu('account_security');
 		}
 	}
+
+	function editUsername(){
+		if ($this->input->post()) {
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('username','New username','required');
+			$this->form_validation->set_rules('user_id','user id','required');
+			if ($this->form_validation->run()) {
+				$data = array(
+					'user_name' => $this->input->post('username')
+				);
+				$response = $this->DAO->saveOrUpdateEntity('users',$data,array('user_id'=>$this->input->post('user_id')));
+				$this->session->set_flashdata('success_msg_username','Username updated successfully',1);
+				$this->editMenu('account');
+			}else{
+				$this->editMenu('account');
+				$this->session->set_flashdata('error_msg_username','Error updating username',1);
+			}
+		}else{
+			$this->editMenu('account');
+			$this->session->set_flashdata('error_msg_username','Error updating username',1);
+		}
+	}
 }
